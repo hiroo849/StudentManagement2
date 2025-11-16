@@ -1,5 +1,6 @@
 package raisetech.StudentManagement;
 
+import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,5 +33,6 @@ public class StudentManagementApplication {
   @PostMapping("/studentName")
   public void updateStudentName(String name){
     this.name = name;
+    this.age  = age;
   }
 }
