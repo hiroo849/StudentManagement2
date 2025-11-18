@@ -1,6 +1,7 @@
 package raisetech.StudentManagement;
 
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StudentManagementApplication {
 
+  @Autowired
+  private StudentRepository repository;
+
   private String name = "Enami Kouji";
   private String age = "37";
 
@@ -19,15 +23,15 @@ public class StudentManagementApplication {
     SpringApplication.run(StudentManagementApplication.class, args);
   }
 
-  @GetMapping("/studentInfo")
-  public String getStudentInfo(){
-    return name + " " + age + "sai";
+  @GetMapping("/student")
+  public String getStudent(){
+    Student student = repository.searchByName("TanakaYuuki");
+    return student.getName() + " " + student.getAge() + "sai";
   }
 
-  @PostMapping("/studentInfo")
-  public void setStudentInfo(@RequestParam String name,@RequestParam String age){
-    this.name = name;
-    this.age =  age;
+  @PostMapping("/student")
+  public void registerStudent(@RequestParam String name,@RequestParam int age){
+    repository.registerStudent(name, age);
   }
 
   @PostMapping("/studentName")
