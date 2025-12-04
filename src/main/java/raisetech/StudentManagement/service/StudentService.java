@@ -21,15 +21,10 @@ public class StudentService {
     //検索処理
     repository.search();
 
-    //絞り込みをする。年齢が30代の人のみを抽出する。
-    //抽出したリストをコントローラーに返す。
-
     return repository.search();
   }
 
   public List<StudentsCourses> searchStudentsCourseList(){
-    //絞り込み検索で「Javaコース」のコース情報のみを抽出する。
-    //抽出したリストをコントローラーに返す。
     return repository.searchStudentsCourses();
   }
 }
