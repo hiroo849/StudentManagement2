@@ -1,5 +1,6 @@
 package raisetech.StudentManagement.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,17 @@ public class StudentService {
   }
 
   @Transactional
-  public void registerStudent(StudentDetail studentDetail){
+  public void registerStudent(StudentDetail studentDetail) {
+
     repository.registerStudent(studentDetail.getStudent());
+
+    for (StudentsCourses studentsCourses : studentDetail.getStudentsCourses()) {
+
+      studentsCourses.setStudentId(studentDetail.getStudent().getId());
+      studentsCourses.setStartDate(LocalDateTime.now());
+      studentsCourses.setEndDate(LocalDateTime.now().plusYears(1));
+
+      repository.registerStudentCourses(studentsCourses);
+    }
   }
 }
